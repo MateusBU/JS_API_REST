@@ -1,0 +1,21 @@
+// o model é no singular
+import Sequelize, { Model } from 'sequelize';
+
+export default class aluno extends Model {
+  static init(sequelize) {
+    super.init(
+      {
+        nome: Sequelize.STRING,
+        sobrenome: Sequelize.STRING,
+        email: Sequelize.STRING,
+        idade: Sequelize.INTEGER,
+        peso: Sequelize.FLOAT,
+        altura: Sequelize.FLOAT,
+      },
+      {
+        sequelize,
+      },
+    );
+    return this;
+  }
+}
