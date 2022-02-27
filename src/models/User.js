@@ -47,8 +47,11 @@ export default class user extends Model {
     );
     // o addHook executa uma açao antes de algo
     this.addHook('beforeSave', async (users) => {
-      users.password_hash = await bcryptjs.hash(users.password, 8);// 8 é o tamanho
-      // preenche o hash com o cripto do password
+      if (users.password) {
+        // caso o user quiser atualizar apenas o nome, o password não será enviado
+        users.password_hash = await bcryptjs.hash(users.password, 8);// 8 é o tamanho
+        // preenche o hash com o cripto do password
+      }
     });
     return this;
   }
