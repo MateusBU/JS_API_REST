@@ -1,12 +1,15 @@
 import { Router } from 'express';
 import userControllers from '../controllers/UserControllers';
+import loginRequired from '../middlewares/loginRequired';
 
 const router = new Router();
 
 router.post('/', userControllers.store);// como a rota é de post (ver App.route(), tanto que a url ('/') é a mesma) no insomnia tem que ser post
 // nessa parte não precisa colocar /store igual ao do app.js, se não fiacria /users/store
 
-router.get('/', userControllers.index); /* vai ser no mesmo lugar que o de cima,
+router.get('/', loginRequired, userControllers.index);
+/* antes de acessar o index, é necessario passar pelo middleware (loginRequired)
+vai ser no mesmo lugar que o de cima,
 porem vai chamar a função index do userControllers */
 
 router.get('/:id', userControllers.show); /* vai ser no mesmo lugar que o de cima,

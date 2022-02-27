@@ -21,6 +21,9 @@ class UserController { // salva
   async index(req, res) {
     try {
       const users = await User.findAll();
+      console.log('USER_ID', req.userId);
+      console.log('USER_EMAIL', req.userEmail);
+      /* Tanto o req.userId, quanto o user Email, vieram do middleware do loginRequired */
       return res.json(users); // retorna todo os users da tabela
     } catch (e) {
       return res.json(null);
