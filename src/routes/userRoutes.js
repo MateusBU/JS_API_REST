@@ -4,7 +4,7 @@ import loginRequired from '../middlewares/loginRequired';
 
 const router = new Router();
 
-router.get('/', loginRequired, userControllers.index);// o index todos os usuarios (não deveria existir)
+router.get('/', userControllers.index);// o index todos os usuarios (não deveria existir)
 /* antes de acessar o index, é necessario passar pelo middleware (loginRequired)
 vai ser no mesmo lugar que o de cima,
 porem vai chamar a função index do userControllers */
