@@ -7,7 +7,9 @@ class UserController { // salva
       // por json e mando send, esse sjon eu recebo pelo req.body,
       // escreve no insomina  _.base_url/users/
 
-      return res.json(novoUser);/* res.status(200).json({ // o status é para aparecer no insomnia
+      const { id, nome, email } = novoUser;
+      return res.json({ id, nome, email });
+      /* res.status(200).json({ // o status é para aparecer no insomnia
         'tudo-certo': true,
       }); */
     } catch (e) {
@@ -20,7 +22,7 @@ class UserController { // salva
   // Index
   async index(req, res) {
     try {
-      const users = await User.findAll();
+      const users = await User.findAll({ attributes: ['id', 'nome', 'email'] }); // vai aparecer só esses campos no insomnia
       console.log('USER_ID', req.userId);
       console.log('USER_EMAIL', req.userEmail);
       /* Tanto o req.userId, quanto o user Email, vieram do middleware do loginRequired */
@@ -35,7 +37,9 @@ class UserController { // salva
     try {
       // o req.params vem na rota
       const users = await User.findByPk(req.params.id);
-      return res.json(users); // retorna o usser selecionado pelo findByPk();
+
+      const { id, nome, email } = users; // vai aparecer só esses campos no insomnia
+      return res.json({ id, nome, email }); // retorna o usser selecionado pelo findByPk();
     } catch (e) {
       return res.json(null);
     }// escreve no insomina  _.base_url/users/
@@ -44,13 +48,7 @@ class UserController { // salva
   // Update
   async update(req, res) {
     try {
-      // o req.params vem na rota
-      if (!req.params.id) {
-        return res.status(400).json({
-          errors: ['ID não enviado'],
-        });
-      }
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.userId);
       if (!user) {
         return res.status(400).json({
           errors: ['Usuário não existe'],
@@ -59,8 +57,8 @@ class UserController { // salva
       // se chegar aqui, tem a certeza que id foi enviado, e tem um usuario com esse id
 
       const novosDados = await user.update(req.body);
-
-      return res.json(novosDados); // retorna o usser selecionado pelo findByPk();
+      const { id, nome, email } = novosDados;
+      return res.json({ id, nome, email }); // retorna o usser selecionado pelo findByPk();
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),
@@ -72,13 +70,7 @@ class UserController { // salva
 
   async delete(req, res) {
     try {
-      // o req.params vem na rota
-      if (!req.params.id) {
-        return res.status(400).json({
-          errors: ['ID não enviado'],
-        });
-      }
-      const user = await User.findByPk(req.params.id);
+      const user = await User.findByPk(req.userId);
       if (!user) {
         return res.status(400).json({
           errors: ['Usuário não existe'],
@@ -88,7 +80,7 @@ class UserController { // salva
 
       await user.destroy();
 
-      return res.json(user);
+      return res.json(null);
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),
