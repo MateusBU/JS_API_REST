@@ -14,13 +14,18 @@ class FotoController { // salva
           errors: [error.code],
         });
       }
+      try {
+        const { originalname, filename } = req.file;
+        const { aluno_id } = req.body;
+        console.log(aluno_id);
+        const Foto = await foto.create({ originalname, filename, aluno_id });
 
-      const { originalname, filename } = req.file;
-      const { aluno_id } = req.body;
-      console.log(aluno_id);
-      const Foto = await foto.create({ originalname, filename, aluno_id });
-
-      return res.json(Foto);
+        return res.json(Foto);
+      } catch (e) {
+        return res.status(400).json({
+          errors: ['Aluno não existe'],
+        });
+      }
     });
   }
 }

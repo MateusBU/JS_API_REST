@@ -15,7 +15,7 @@ mas vai temos que enviar um id junto que a função irá receber e irá procurar
 qual user tem o id, retorno todos seu dados
 porem vai chamar a função show do userControllers */
 
-router.post('/', userControllers.store);// como a rota é de post (ver App.route(), tanto que a url ('/') é a mesma) no insomnia tem que ser post
+router.post('/', loginRequired, userControllers.store);// como a rota é de post (ver App.route(), tanto que a url ('/') é a mesma) no insomnia tem que ser post
 // nessa parte não precisa colocar /store igual ao do app.js, se não fiacria /users/store
 router.put('/', loginRequired, userControllers.update); /* chama a função update do user Controllers */
 router.delete('/', loginRequired, userControllers.delete); /* chama a função delete do user Controllers */

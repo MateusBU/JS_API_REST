@@ -32,8 +32,8 @@ export default class foto extends Model {
     return this;
   }
 
-  static assosiate(models) {
-    this.belongsTo(models.Aluno, { foreignKey: 'aluno_id' });
+  static associate(models) {
+    this.belongsTo(models.aluno, { foreignKey: 'aluno_id' });
     // no models do aluno, seria = this.hasOne(models.Foto, { foreignKey: 'aluno_id' })
   }
 }

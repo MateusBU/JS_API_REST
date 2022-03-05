@@ -71,4 +71,8 @@ export default class aluno extends Model {
     );
     return this;
   }
+
+  static associate(models) {
+    this.hasMany(models.foto, { foreignKey: 'aluno_id' });
+  }
 }
