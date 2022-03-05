@@ -15,7 +15,7 @@ export default {
     destination: (req, file, cb) => {
       // função cb (callback), dirname - nome da pasta atual volta um,
       // volta mais uma, e chega no uploads
-      cb(null, resolve(__dirname, '..', '..', 'uploads'));
+      cb(null, resolve(__dirname, '..', '..', 'uploads', 'images'));
     },
     filename: (req, file, cb) => {
       // muda o nome do arquivo, para o milesungo e o extname é a extensão do nome

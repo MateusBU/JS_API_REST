@@ -8,7 +8,7 @@ class AlunoController { // salva
       order: [['id', 'DESC'], [Foto, 'id', 'DESC']], // ordena os aluno e Foto no isnomnia pela id decrescente
       include: {
         model: Foto,
-        attributes: ['id', 'filename'],
+        attributes: ['id', 'url', 'filename'],
       },
     });
     res.json(alunos);
@@ -39,7 +39,7 @@ class AlunoController { // salva
         order: [['id', 'DESC'], [Foto, 'id', 'DESC']], // ordena os aluno e Foto no isnomnia pela id decrescente
         include: {
           model: Foto,
-          attributes: ['id', 'filename'],
+          attributes: ['id', 'url', 'filename'],
         },
       });
       if (!alunoShow) {
